@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-RGXEF62STR"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-RGXEF62STR');
+</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hamza Hoca ile Türkçe Öğreniyorum</title>
+<style>
+/* RESET & BASE */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(135deg, #0D1B2A 0%, #1a2a3a 100%);
+  min-height: 100vh;
+  color: white;
+}
+.page-wrapper {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 48px 20px 80px;
+}
+header {
+  text-align: center;
+  margin-bottom: 44px;
+}
+header h1 {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-size: clamp(1.8rem, 6vw, 2.5rem);
+  font-weight: 800;
+  color: #F5C842;
+  line-height: 1.3;
+  margin-bottom: 16px;
+}
+.header-line {
+  width: 80px;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #F5C842, transparent);
+  margin: 0 auto 14px;
+}
+.stars {
+  font-size: 1.2rem;
+  color: #F5C842;
+  letter-spacing: .4em;
+  margin-bottom: 8px;
+}
+.subtitle {
+  font-size: 0.8rem;
+  color: rgba(255,255,255,0.5);
+  letter-spacing: .1em;
+  text-transform: uppercase;
+}
+/* ANA BUTON GRID (4+4+2) */
+.main-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  margin-bottom: 32px;
+}
+.btn-row {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+}
+@media (max-width: 700px) {
+  .btn-row { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 480px) {
+  .btn-row { grid-template-columns: 1fr; }
+}
+.cat-btn {
+  background: #1a2332;
+  border: 2px solid #F5C842;
+  border-radius: 16px;
+  padding: 18px 10px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  transition: background .22s, transform .18s;
+  width: 100%;
+}
+.cat-btn:hover {
+  background: #2a3a4a;
+  transform: translateY(-3px);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+}
+.cat-btn.active {
+  background: #2a3a4a;
+  box-shadow: 0 0 0 1px #F5C842;
+}
+.cat-btn .emoji { font-size: 2rem; line-height: 1; }
+.cat-btn .label { font-size: clamp(0.9rem, 1.5vw, 1.1rem); font-weight: bold; color: #F5C842; text-align: center; }
+
+/* İçerik panelleri */
+.content-panel {
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  transition: max-height .45s cubic-bezier(.4,0,.2,1), opacity .35s ease;
+  margin-bottom: 0;
+  border-radius: 20px;
+}
+.content-panel.open {
+  opacity: 1;
+  margin-bottom: 24px;
+}
+.panel-header {
+  background: #1a2332;
+  padding: 16px 24px;
+  border-radius: 20px 20px 0 0;
+  border-bottom: 2px solid #F5C842;
+}
+.panel-header h2 { font-size: clamp(1.1rem, 2vw, 1.3rem); font-weight: bold; color: #F5C842; }
+.panel-body { background: white; padding: 24px; border-radius: 0 0 20px 20px; }
+
+.items-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 12px; }
+.item-card {
+  background: #f8f9fa;
+  border: 1px solid #e9ecef;
+  border-radius: 12px;
+  padding: 12px 18px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  text-decoration: none;
+  color: #333;
+  font-weight: 500;
+  transition: background .2s;
+}
+.item-card:hover { background: #e9ecef; transform: translateX(5px); color: #333; }
+.badge { display: inline-block; padding: 4px 12px; border-radius: 20px; font-size: 0.7rem; font-weight: 600; white-space: nowrap; color: white; }
+.badge-locked { background: #6c757d; }
+.badge-free { background: #2a9d8f; }
+
+/* iki sütunlu */
+.two-col-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+@media (max-width: 500px) { .two-col-grid { grid-template-columns: 1fr; } }
+.col-label { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; padding-bottom: 6px; margin-bottom: 4px; }
+.col-label-free { color: #2a9d8f; border-bottom: 2px solid #2a9d8f; }
+.col-label-locked { color: #6c757d; border-bottom: 2px solid #6c757d; }
+.col-items { display: flex; flex-direction: column; gap: 10px; }
+
+/* modal, footer, widget */
+.modal-overlay { display: none; position: fixed; inset: 0; z-index: 100; background: rgba(0,0,0,0.8); align-items: center; justify-content: center; }
+.modal-overlay.show { display: flex; }
+.modal { background: white; border-radius: 24px; padding: 40px; width: min(440px, 94vw); position: relative; }
+.modal-close { position: absolute; top: 16px; right: 20px; background: none; border: none; font-size: 1.4rem; cursor: pointer; }
+.modal h2 { font-size: 24px; color: #333; text-align: center; }
+.form-group { margin-bottom: 18px; }
+.form-group input { width: 100%; border: 2px solid #ddd; border-radius: 10px; padding: 12px; }
+.btn-login { width: 100%; padding: 14px; background: linear-gradient(135deg, #F5C842, #C9960A); border: none; border-radius: 40px; color: white; font-weight: 700; cursor: pointer; }
+.tg-widget { display: flex; align-items: flex-end; gap: 12px; margin-top: 20px; padding: 16px 18px; background: #f0f4ff; border-radius: 16px; }
+.tg-icon { flex-shrink: 0; width: 44px; height: 44px; background: #229ED9; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
+.tg-icon svg { width: 24px; height: 24px; fill: white; }
+.tg-bubble { background: #229ED9; color: white; font-size: 0.88rem; padding: 10px 14px; border-radius: 16px 16px 16px 4px; }
+.tg-send-btn { background: linear-gradient(135deg, #229ED9, #1a7fb5); color: white; border: none; border-radius: 20px; padding: 7px 18px; font-size: 0.78rem; cursor: pointer; text-decoration: none; }
+footer { margin-top: 60px; font-size: 0.8rem; color: rgba(255,255,255,0.5); display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; }
+.visitor-counter { display: inline-flex; align-items: center; gap: 6px; background: rgba(255,255,255,0.07); border-radius: 20px; padding: 4px 12px; }
+.site-logo { position: absolute; top: 20px; max-width: 100px; z-index: 50; pointer-events: none; }
+.site-logo.left { left: 20px; }
+.site-logo.right { right: 20px; }
+.site-logo img { width: 100%; display: block; background: transparent; }
+@media (max-width: 700px) { .site-logo { max-width: 70px; } }
+</style>
+</head>
+<body>
+<div class="site-logo left"><img src="https://github.com/hamzaozaydin/testmerkezi/blob/main/sitenin_logosu.png?raw=true" alt="Logo"></div>
+<div class="site-logo right"><img src="https://github.com/hamzaozaydin/testmerkezi/blob/main/sitenin_logosu.png?raw=true" alt="Logo"></div>
+<div class="page-wrapper">
+<header>
+    <h1>HAMZA HOCA İLE<br>TÜRKÇE ÖĞRENİYORUM</h1>
+    <div class="header-line"></div>
+    <div class="stars">★ ★ ★ ★ ★</div>
+    <p class="subtitle">Türkçe Öğrenme Platformu</p>
+</header>
+
+<div class="main-grid">
+  <div class="btn-row">
+    <button class="cat-btn" onclick="togglePanel('sinavlar')"><span class="emoji">📖</span><span class="label">Sınavlar</span></button>
+    <button class="cat-btn" onclick="togglePanel('alistirmalar')"><span class="emoji">✍️</span><span class="label">Alıştırmalar</span></button>
+    <button class="cat-btn" onclick="togglePanel('kelimeogren')"><span class="emoji">🗂️</span><span class="label">Kelime Öğren</span></button>
+    <button class="cat-btn" onclick="togglePanel('gramer')"><span class="emoji">📐</span><span class="label">Gramer Öğren</span></button>
+  </div>
+  <div class="btn-row">
+    <button class="cat-btn" onclick="togglePanel('okumayap')"><span class="emoji">📖</span><span class="label">Okuma Yap</span></button>
+    <button class="cat-btn" onclick="togglePanel('odevgonder')"><span class="emoji">📤</span><span class="label">Ödev Gönder</span></button>
+    <button class="cat-btn" onclick="togglePanel('oyunlar')"><span class="emoji">🎯</span><span class="label">Oyunlar</span></button>
+    <button class="cat-btn" onclick="togglePanel('ogretmenler')"><span class="emoji">👩‍🏫</span><span class="label">Öğretmenler İçin</span></button>
+  </div>
+  <div class="btn-row">
+    <button class="cat-btn" onclick="togglePanel('videolar')"><span class="emoji">🎬</span><span class="label">Videolar</span></button>
+    <button class="cat-btn" onclick="togglePanel('sorular')"><span class="emoji">💬</span><span class="label">Sorular</span></button>
+    <div></div><div></div>
+  </div>
+</div>
+
+<!-- PANELLER -->
+<div id="sinavlarPanel" class="content-panel"><div class="panel-header"><h2>📖 Sınavlar</h2></div><div class="panel-body"><div class="two-col-grid"><div><div class="col-label col-label-free">📘 Okuma Sınavları</div><div class="col-items" id="okumaSinavListesi"></div></div><div><div class="col-label col-label-locked">🎧 Dinleme Sınavları</div><div class="col-items" id="dinlemeSinavListesi"></div></div></div><div class="tg-widget"><div class="tg-icon"><svg viewBox="0 0 24 24"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg></div><div class="tg-body"><span class="tg-bubble">Merhaba hocam. Ben bu testleri satın almak istiyorum.</span><a class="tg-send-btn" href="https://t.me/HamzaOzaydin?text=Merhaba%20hocam.%20Ben%20bu%20testleri%20sat%C4%B1n%20almak%20istiyorum." target="_blank">Gönder</a></div></div></div></div>
+
+<div id="alistirmalarPanel" class="content-panel"><div class="panel-header"><h2>✍️ Alıştırmalar</h2></div><div class="panel-body"><div><div class="col-label col-label-free">📖 Okuma Alıştırmaları</div><div class="two-col-grid"><div class="col-items" id="okumaAlistirmaUcretsiz"></div><div class="col-items" id="okumaAlistirmaUcretli"></div></div></div><div style="margin-top:20px"><div class="col-label col-label-free">🎤 Dinleme Alıştırmaları</div><div class="two-col-grid"><div class="col-items" id="dinlemeAlistirmaUcretsiz"></div><div class="col-items" id="dinlemeAlistirmaUcretli"></div></div></div><div style="margin-top:20px"><div class="col-label col-label-free">✏️ Yazma Alıştırmaları</div><div class="items-grid" id="yazmaAlistirmaListesi"></div></div></div></div>
+
+<div id="kelimeogrenPanel" class="content-panel"><div class="panel-header"><h2>🗂️ Kelime Öğren</h2></div><div class="panel-body"><div><div class="col-label col-label-free">A1/A2 Kelime Kartları</div><div class="items-grid" id="a1KelimeListesi"></div></div><div style="margin-top:20px"><div class="col-label col-label-free">B2/C1 Kelime Kartları</div><div class="two-col-grid"><div class="col-items" id="b2c1Ucretsiz"></div><div class="col-items" id="b2c1Ucretli"></div></div></div><div style="margin-top:20px"><div class="col-label col-label-free">📖 Sözlük</div><a class="item-card" href="https://sozluk.gov.tr/" target="_blank"><span>Türkçe-Türkçe Sözlük</span><span class="badge badge-free">✅ Güncel</span></a></div></div></div>
+
+<div id="gramerPanel" class="content-panel"><div class="panel-header"><h2>📐 Gramer Öğren</h2></div><div class="panel-body"><div class="two-col-grid"><div><div class="col-label col-label-free">A1/A2 Gramer</div><div class="col-items" id="a1gramerListesi"></div></div><div><div class="col-label col-label-locked">B2/C1 Gramer</div><div class="col-items" id="b2gramerListesi"></div></div></div></div></div>
+
+<div id="okumayapPanel" class="content-panel"><div class="panel-header"><h2>📖 Okuma Yap</h2></div><div class="panel-body"><div><div class="col-label col-label-free">Metin Oku</div><div class="two-col-grid"><div class="col-items" id="metinUcretsiz"></div><div class="col-items" id="metinUcretli"></div></div></div><div style="margin-top:20px"><div class="col-label col-label-free">📗 E-Kitaplar / Sesli Kitaplar</div><div class="items-grid" id="ekitapListesi"></div></div></div></div>
+
+<div id="odevgonderPanel" class="content-panel"><div class="panel-header"><h2>📤 Ödev Gönder</h2></div><div class="panel-body"><div class="two-col-grid"><div><div class="col-label col-label-free">✍️ Yazma Ödevi Gönder</div><div class="item-card" onclick="openWritingOdev()"><span>Yazma Ödevi Formu</span><span class="badge badge-free">Gönder</span></div></div><div><div class="col-label col-label-free">🎙️ Konuşma Kaydı Gönder</div><div class="item-card" onclick="openSpeakingOdev()"><span>Konuşma Kaydı Gönder</span><span class="badge badge-free">Gönder</span></div></div></div></div></div>
+
+<div id="oyunlarPanel" class="content-panel"><div class="panel-header"><h2>🎯 Oyunlar</h2></div><div class="panel-body"><div class="two-col-grid"><div class="col-items" id="oyunUcretsiz"></div><div class="col-items" id="oyunUcretli"></div></div></div></div>
+
+<div id="ogretmenlerPanel" class="content-panel"><div class="panel-header"><h2>👩‍🏫 Öğretmenler İçin</h2></div><div class="panel-body"><div class="items-grid" id="ogretmenListesi"></div></div></div>
+
+<div id="videolarPanel" class="content-panel"><div class="panel-header"><h2>🎬 Videolar (Soru Çözme Teknikleri)</h2></div><div class="panel-body"><div class="items-grid" id="videoListesi"></div></div></div>
+
+<div id="sorularPanel" class="content-panel"><div class="panel-header"><h2>💬 Sorular</h2></div><div class="panel-body"><div><div class="col-label col-label-free">Konuşma Soruları</div><div class="two-col-grid"><div class="col-items" id="konusmaUcretsiz"></div><div class="col-items" id="konusmaUcretli"></div></div></div><div style="margin-top:20px"><div class="col-label col-label-free">✍️ Yazma Soruları</div><div class="items-grid" id="yazmaSoruListesi"></div></div></div></div>
+
+<footer><p>© 2026 <span>Hamza Hoca</span> — Türkçe Öğrenme Platformu</p><div class="visitor-counter"><span>👤</span><span id="vcDaily">—</span><span>/</span><span id="vcTotal">—</span></div></footer>
+</div>
+
+<div class="modal-overlay" id="modalOverlay"><div class="modal"><button class="modal-close" onclick="closeModal()">✕</button><h2>🔐 Giriş Yap</h2><p class="sub" id="modalSubTitle"></p><div class="form-group"><label>Kullanıcı Adı</label><input type="text" id="inputUser"></div><div class="form-group"><label>Şifre</label><input type="password" id="inputPass"></div><button class="btn-login" onclick="doLogin()">GİRİŞ YAP</button><div class="error-msg" id="errorMsg"></div></div></div>
+<div class="modal-overlay" id="videoOverlay" onclick="closeVideoOutside(event)" style="z-index:200;"><div style="background:#000; border-radius:16px; padding:12px; width:min(720px,96vw);"><button onclick="closeVideo()" style="position:absolute;top:10px;right:14px;background:none;border:none;font-size:1.4rem;color:#fff;">✕</button><video id="videoPlayer" controls style="width:100%;border-radius:10px;"></video></div></div>
+
+<script>
+const SHEET_ID = '1CZAbgcO8mBnEJ_Ay9baiHESirK3C8A1i3C-rDRzLEJE';
+const EXAM_SHEET_URL = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:csv&sheet=Sheet2`;
+const WRITING_SHEET_URL = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:csv&sheet=Sheet3`;
+const SPEAKING_SHEET_URL = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:csv&sheet=Sheet4`;
+const ACCESS_TYPE = { EXAM: 'exam', WRITING: 'writing', SPEAKING: 'speaking' };
+let targetPage = '', targetUrl = '', targetVideoSrc = null;
+
+function togglePanel(panelId) {
+  const panel = document.getElementById(panelId + 'Panel');
+  if (!panel) return;
+  const isOpen = panel.classList.contains('open');
+  document.querySelectorAll('.content-panel').forEach(p => { p.classList.remove('open'); p.style.maxHeight = '0'; });
+  document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
+  if (!isOpen) {
+    panel.classList.add('open');
+    panel.style.maxHeight = panel.scrollHeight + 'px';
+    const btn = Array.from(document.querySelectorAll('.cat-btn')).find(b => b.textContent.includes(panelId === 'sinavlar'?'Sınavlar':panelId==='alistirmalar'?'Alıştırmalar':panelId==='kelimeogren'?'Kelime':panelId==='gramer'?'Gramer':panelId==='okumayap'?'Okuma':panelId==='odevgonder'?'Ödev':panelId==='oyunlar'?'Oyunlar':panelId==='ogretmenler'?'Öğretmenler':panelId==='videolar'?'Videolar':'Sorular'));
+    if(btn) btn.classList.add('active');
+    setTimeout(() => panel.scrollIntoView({ behavior: 'smooth', block: 'start' }), 50);
+  }
+}
+function openExamLogin(page) { if(checkAccessAndOpen(ACCESS_TYPE.EXAM,()=>window.location.href=page))return; targetPage=page; document.getElementById('modalSubTitle').innerHTML='Bu içeriğe erişmek için <strong>Sınav</strong> hesabıyla giriş yapın.'; showModal(); }
+function openExamLoginVideo(src) { if(checkAccessAndOpen(ACCESS_TYPE.EXAM,()=>openVideo(src)))return; targetVideoSrc=src; document.getElementById('modalSubTitle').innerHTML='Bu video için <strong>Sınav</strong> girişi gerekli.'; showModal(); }
+function openWritingOdev() { const url='https://hamzahocaodevkontrolu.base44.app/'; if(checkAccessAndOpen(ACCESS_TYPE.WRITING,()=>window.location.href=url))return; targetUrl=url; document.getElementById('modalSubTitle').innerHTML='Yazma ödevi için <strong>Yazma Ödevi</strong> hesabıyla giriş yapın.'; showModal(); }
+function openSpeakingOdev() { const url='https://hamzahocailekonusmapratigi.base44.app/'; if(checkAccessAndOpen(ACCESS_TYPE.SPEAKING,()=>window.location.href=url))return; targetUrl=url; document.getElementById('modalSubTitle').innerHTML='Konuşma kaydı için <strong>Konuşma Ödevi</strong> hesabıyla giriş yapın.'; showModal(); }
+function checkAccessAndOpen(type, cb) { let storedType = sessionStorage.getItem('hamzaAccessType'); let user = sessionStorage.getItem('hamzaUser'); if(user && storedType===type) { cb(); return true; } if(user && storedType!==type) { alert('Farklı hesap türü gerekli. Oturum kapatılıyor.'); sessionStorage.clear(); } return false; }
+function showModal() { document.getElementById('modalOverlay').classList.add('show'); }
+function closeModal() { document.getElementById('modalOverlay').classList.remove('show'); }
+function openVideo(src) { let player = document.getElementById('videoPlayer'); player.src = src; player.load(); document.getElementById('videoOverlay').classList.add('show'); }
+function closeVideo() { let p = document.getElementById('videoPlayer'); p.pause(); p.src = ''; document.getElementById('videoOverlay').classList.remove('show'); }
+function closeVideoOutside(e) { if(e.target===document.getElementById('videoOverlay')) closeVideo(); }
+
+async function doLogin() {
+  let user = document.getElementById('inputUser').value.trim();
+  let pass = document.getElementById('inputPass').value.trim();
+  if(!user||!pass) return;
+  let sub = document.getElementById('modalSubTitle').innerText;
+  let requiredType = sub.includes('Sınav')?ACCESS_TYPE.EXAM:(sub.includes('Yazma')?ACCESS_TYPE.WRITING:ACCESS_TYPE.SPEAKING);
+  let sheetUrl = requiredType===ACCESS_TYPE.EXAM?EXAM_SHEET_URL:(requiredType===ACCESS_TYPE.WRITING?WRITING_SHEET_URL:SPEAKING_SHEET_URL);
+  try{
+    let res = await fetch(sheetUrl);
+    let csv = await res.text();
+    let rows = parseCSV(csv);
+    let found=false, expired=false;
+    for(let i=1;i<rows.length;i++){
+      let [su, sp, exp] = rows[i];
+      if(su.toLowerCase()===user.toLowerCase() && sp===pass){
+        found=true;
+        if(exp && exp!==''){
+          let parts = exp.split('-');
+          if(parts.length===3){
+            let exDate = new Date(parts[2], parts[1]-1, parts[0]);
+            let today = new Date(); today.setHours(0,0,0,0);
+            if(today>exDate){ expired=true; continue; }
+          }
+        }
+        sessionStorage.setItem('hamzaUser',user);
+        sessionStorage.setItem('hamzaAccessType',requiredType);
+        closeModal();
+        if(targetVideoSrc){ openVideo(targetVideoSrc); targetVideoSrc=null; }
+        else if(targetUrl){ window.location.href=targetUrl; targetUrl=''; }
+        else if(targetPage){ window.location.href=targetPage; targetPage=''; }
+        return;
+      }
+    }
+    alert(found?(expired?'Üyelik süreniz doldu!':'Hatalı şifre'):'Kullanıcı bulunamadı');
+  }catch(e){ alert('Bağlantı hatası'); }
+}
+function parseCSV(text){ let rows=[]; let lines=text.split('\n'); for(let l of lines){ if(!l.trim())continue; let cols=[]; let cur='', inq=false; for(let ch of l){ if(ch==='"') inq=!inq; else if(ch===','&&!inq){ cols.push(cur); cur=''; } else cur+=ch; } cols.push(cur); rows.push(cols.map(c=>c.replace(/^"|"$/g,'').trim())); } return rows; }
+
+// İÇERİK LİSTELERİ (statik veri - orjinal dosyadaki tüm linkler korunarak)
+function fillContents(){
+  // Okuma sınavları (hepsi kilitli)
+  let okumaList = ['okuma1.html','okuma-testi-2.html','okuma_testi_3.html','okuma_testi_4.html','okuma_testi_5.html','okuma_testi_6.html','okuma_testi_7.html','okuma_testi_8.html','TYS_okuma_testi_1.html'];
+  let dinlemeList = ['dinleme_sinavi.html','dinleme_testi_2.html','dinleme_testi_3.html','dinleme_testi_4.html','dinleme_testi_5.html','dinleme_testi_6.html','TYS_dinleme_testi_1.html','dinleme_testi_8.html'];
+  document.getElementById('okumaSinavListesi').innerHTML = okumaList.map(f=>`<div class="item-card" onclick="openExamLogin('${f}')"><span>${f.replace('.html','').replace(/_/g,' ')}</span><span class="badge badge-locked">🔒 Giriş Gerekli</span></div>`).join('');
+  document.getElementById('dinlemeSinavListesi').innerHTML = dinlemeList.map(f=>`<div class="item-card" onclick="openExamLogin('${f}')"><span>${f.replace('.html','').replace(/_/g,' ')}</span><span class="badge badge-locked">🔒 Giriş Gerekli</span></div>`).join('');
+  // Okuma alıştırmaları
+  let ucretsizOkuma = ['okuma_alistirmasi_1.html','okuma_alistirmasi_2.html','okuma_alistirmasi_3.html','okuma_alistirmasi_4.html','okuma_alistirmasi_5.html','tys_okuma_alistirmasi_ucretsiz_1.html'];
+  let ucretliOkuma = ['tys_okuma_alistirmasi_1.html','tys_okuma_alistirmasi_ucretli_2.html','okuma_alistirmasi_ucretli_1.html','okuma_alistirmasi_ucretli_2.html'];
+  document.getElementById('okumaAlistirmaUcretsiz').innerHTML = ucretsizOkuma.map(f=>`<a class="item-card" href="${f}"><span>${f.replace('.html','').replace(/_/g,' ')}</span><span class="badge badge-free">✅ Ücretsiz</span></a>`).join('');
+  document.getElementById('okumaAlistirmaUcretli').innerHTML = ucretliOkuma.map(f=>`<div class="item-card" onclick="openExamLogin('${f}')"><span>${f.replace('.html','').replace(/_/g,' ')}</span><span class="badge badge-locked">🔒 Giriş Gerekli</span></div>`).join('');
+  // dinleme alıştırmaları (ücretsiz hepsi)
+  let dinlemeUcretsiz = ['dinleme_alistirmasi_1.html','dinleme_alistirmasi_2.html','dinleme_alistirmasi_3.html','dinleme_alistirmasi_4.html','dinleme_alistirmasi_5.html','b2_kroki_alıştırmasi_1.html','dinleme_alistimasikroki_7.html','dinleme_alistimasikroki_8.html'];
+  document.getElementById('dinlemeAlistirmaUcretsiz').innerHTML = dinlemeUcretsiz.map(f=>`<a class="item-card" href="${f}"><span>${f.replace('.html','').replace(/_/g,' ')}</span><span class="badge badge-free">✅ Ücretsiz</span></a>`).join('');
+  document.getElementById('dinlemeAlistirmaUcretli').innerHTML = `<div class="item-card" onclick="openExamLogin('dinleme_alistirma_ucretli_1.html')"><span>Dinleme Alıştırması (Ücretli)</span><span class="badge badge-locked">🔒 Giriş Gerekli</span></div>`;
+  // Yazma alıştırmaları
+  document.getElementById('yazmaAlistirmaListesi').innerHTML = `<a class="item-card" href="yazma_alistirmalari.html"><span>Yazma Alıştırmaları</span><span class="badge badge-free">✅ Ücretsiz</span></a><a class="item-card" href="yazma_sorulari.html"><span>Yazma Soruları</span><span class="badge badge-free">✅ Ücretsiz</span></a>`;
+  // A1/A2 kelime
+  let a1List = ['a1_turk_alfabesi.html','a1_unlu_harfler.html','a1_hal_ekleri_ozbekce.html','a1_a2_unsuz_benzesmesi.html','kartlar.html','gunler.html','a1_es_anlamli_kelimeler.html','a1_zit_anlamlilar.html','akrabalik_adlari.html','benzer_sozler_1.html','benzer_sozler_2.html','A1_es_anlamli_kelime_oyunu_1.html','a1_kelime_bulmaca_1.html','a1_kelime_bulmaca_2.html','a1_hal_ekleri.html','a1_isim_tamlamalari.html','a1_karisik_kelimeler_1.html'];
+  document.getElementById('a1KelimeListesi').innerHTML = a1List.map(f=>`<a class="item-card" href="${f}"><span>${f.replace('.html','').replace(/_/g,' ')}</span><span class="badge badge-free">✅ Ücretsiz</span></a>`).join('');
+  // B2/C1
+  let b2free = ['kroki_kelimeleri.html','kelimeler1.html','b2c1_kelimeler_ucretsiz2.html','b2c1_kelimeler_ucretsiz_3.html','cumle_kurma_alistirmasi_ucretsiz_1.html','deyimler_b2_ucretsiz_1.html','gunluk_ifadeler_ucretsiz_1.html','https://hamzahocaileturkceogreniyorum1.base44.app/','b2_c1_kelime_bulmaca_ucretsiz.html'];
+  let b2locked = ['baglaçlar.html','b2_birlesik_zamanlar.html','b2_kelimeler_2.html','b2_kelimeler_3.html','b2_kelimeler_33.html','b2_kelimeler_4.html','cumle_kurma_alistirmasi_1.html','cumle_kurma_alistirmasi_2.html','B2_es_anlamli_kelime_oyunu_1.html','gunluk_ifadeler_1.html','gunluk_ifadeler_2.html','gunluk_ifadeler_3.html','gunluk_ifadeler_4.html','deyimler_b2_1.html','deyimler_b2_2.html'];
+  document.getElementById('b2c1Ucretsiz').innerHTML = b2free.map(f=>`<a class="item-card" href="${f}"><span>${f.includes('http')?'Özbekçe-Türkçe':f.replace('.html','').slice(0,20)}</span><span class="badge badge-free">✅ Ücretsiz</span></a>`).join('');
+  document.getElementById('b2c1Ucretli').innerHTML = b2locked.map(f=>`<div class="item-card" onclick="openExamLogin('${f}')"><span>${f.replace('.html','').replace(/_/g,' ')}</span><span class="badge badge-locked">🔒 Giriş Gerekli</span></div>`).join('');
+  // Gramer
+  let a1gramer = ['a1_turk_alfabesi.html','a1_unlu_harfler.html','a1_hal_ekleri_ozbekce.html','a1_a2_unsuz_benzesmesi.html','a1_isim_tamlamalari.html'];
+  let b2gramer = ['baglaçlar.html','b2_birlesik_zamanlar.html'];
+  document.getElementById('a1gramerListesi').innerHTML = a1gramer.map(f=>`<a class="item-card" href="${f}"><span>${f.replace('.html','').replace(/_/g,' ')}</span><span class="badge badge-free">✅ Ücretsiz</span></a>`).join('');
+  document.getElementById('b2gramerListesi').innerHTML = b2gramer.map(f=>`<div class="item-card" onclick="openExamLogin('${f}')"><span>${f.replace('.html','').replace(/_/g,' ')}</span><span class="badge badge-locked">🔒 Giriş Gerekli</span></div>`).join('');
+  // Metin Oku
+  let metinFree = ['kuresel_isinma.html','elektrikli_araclar.html','yapay_zeka.html','geri_donusum.html','sosyal_medya.html','teknoloji.html','cevre_temizligi.html','ceviri_1.html','ceviri_2.html'];
+  let metinLocked = ['ormanlar.html','ogretmen_yapay_zeka.html','dort_gun_calisma.html','egitimde_yapay_zeka.html','sosyal_medya_dostluklari.html','mekandan_bagimsiz_calisma.html'];
+  document.getElementById('metinUcretsiz').innerHTML = metinFree.map(f=>`<a class="item-card" href="${f}"><span>${f.replace('.html','').replace(/_/g,' ')}</span><span class="badge badge-free">✅ Ücretsiz</span></a>`).join('');
+  document.getElementById('metinUcretli').innerHTML = metinLocked.map(f=>`<div class="item-card" onclick="openExamLogin('${f}')"><span>${f.replace('.html','').replace(/_/g,' ')}</span><span class="badge badge-locked">🔒 Giriş Gerekli</span></div>`).join('');
+  // E-Kitaplar
+  document.getElementById('ekitapListesi').innerHTML = `<a class="item-card" href="ekitaplar_seslikitaplar.html"><span>E-Kitaplar ve Sesli Kitaplar</span><span class="badge badge-free">✅ Ücretsiz</span></a>`;
+  // Oyunlar
+  let oyunFree = ['deyimler_carki.html','fiiller_carki_b1_1.unite.html']; let oyunLocked = ['kelimeler_carki_c1_1.unite.html'];
+  document.getElementById('oyunUcretsiz').innerHTML = oyunFree.map(f=>`<a class="item-card" href="${f}"><span>${f.replace('.html','')}</span><span class="badge badge-free">✅ Ücretsiz</span></a>`).join('');
+  document.getElementById('oyunUcretli').innerHTML = oyunLocked.map(f=>`<div class="item-card" onclick="openExamLogin('${f}')"><span>${f.replace('.html','')}</span><span class="badge badge-locked">🔒 Giriş Gerekli</span></div>`).join('');
+  // Öğretmenler
+  let teacher = ['kronometre.html','hikaye_galerisi_1.html','hikaye_galerisi_2.html','karikaturler_1.html','munazara_carki.html','sessiz_filmler.html'];
+  document.getElementById('ogretmenListesi').innerHTML = teacher.map(f=>`<a class="item-card" href="${f}"><span>${f.replace('.html','').replace(/_/g,' ')}</span><span class="badge badge-free">✅ Ücretsiz</span></a>`).join('');
+  // Videolar
+  let videos = ['video_sorucozmeteknikleri_1.html'];
+  document.getElementById('videoListesi').innerHTML = videos.map(f=>`<a class="item-card" href="${f}"><span>Soru Çözme Teknikleri Video</span><span class="badge badge-free">✅ Ücretsiz</span></a>`).join('');
+  // Konuşma Soruları
+  let konusmaFree = ['2026_ocak_nisan_cikmis_sorular.html','konuşma_soruları_1.html','konuşma_soruları_2.html','konusma_soruları_ucretsiz_3.html','konusma_soruları_ucretsiz_4.html','konusma_soruları_ucretsiz_5.html','konusma_soruları_ucretsiz_6.html','konusma_soruları_ucretsiz_7.html','konusma_soruları_ucretsiz_8.html'];
+  let konusmaLocked = ['konuşma_soruları_3.html','konuşma_soruları_4.html','konusma_sorulari_5.html','konusma_sorulari_6.html','konuşma_soruları_7.html','konusma_sorulari_66.html','konusma_sorulari_77.html','konusma_sorulari_8.html','konusma_sorulari_9.html','konusma_sorulari_10.html','konusma_sorulari_11.html','konusma_sorulari_12.html','konusma_sorulari_13.html','konusma_sorulari_14.html'];
+  document.getElementById('konusmaUcretsiz').innerHTML = konusmaFree.map(f=>`<a class="item-card" href="${f}"><span>${f.replace('.html','').replace(/_/g,' ')}</span><span class="badge badge-free">✅ Ücretsiz</span></a>`).join('');
+  document.getElementById('konusmaUcretli').innerHTML = konusmaLocked.map(f=>`<div class="item-card" onclick="openExamLogin('${f}')"><span>${f.replace('.html','').replace(/_/g,' ')}</span><span class="badge badge-locked">🔒 Giriş Gerekli</span></div>`).join('');
+  // Yazma Soruları
+  document.getElementById('yazmaSoruListesi').innerHTML = `<a class="item-card" href="yazma_sorulari.html"><span>Yazma Soruları</span><span class="badge badge-free">✅ Ücretsiz</span></a>`;
+}
+fillContents();
+
+// Ziyaretçi sayacı
+(function(){
+  const BASE='https://countapi.mileshilliard.com/api/v1'; const TOTAL_KEY='hamzahoca-total'; let today=new Date().toISOString().split('T')[0]; const DAILY_KEY='hamzahoca-daily-'+today; let counted=localStorage.getItem('hamzaCounted')===today;
+  async function update(){ try{ if(!counted){ await fetch(`${BASE}/hit/${DAILY_KEY}`); localStorage.setItem('hamzaCounted',today); } let d=await(await fetch(`${BASE}/get/${DAILY_KEY}`)).json(); let t=await(await fetch(`${BASE}/hit/${TOTAL_KEY}`)).json(); document.getElementById('vcDaily').textContent=d.value||0; document.getElementById('vcTotal').textContent=t.value||0; }catch(e){} } update();
+})();
+</script>
+</body>
+</html>
